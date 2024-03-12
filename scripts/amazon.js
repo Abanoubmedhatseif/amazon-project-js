@@ -50,7 +50,7 @@ products.forEach((product) => {
       Added
     </div>
 
-    <button class="add-to-cart-button button-primary " data-product-name="${product.name}">
+    <button class="add-to-cart-button button-primary " data-product-id="${product.id}">
       Add to Cart
     </button>
   </div>`
@@ -65,21 +65,22 @@ productsContainer.innerHTML = html;
 // ----------------  making add to cart interactive  ----------------
 
 const addToCart = (button) => {
-    const productName = button.dataset.productName;
-    let found = false;
+    const productId = button.dataset.productId;
+    let Matching_item;
 
     cart.forEach((item) => {
-        if (item['product-name'] === productName) {
-            item.quantity += 1;
-            found = true;
+        if (item.productId === productId) {
+            Matching_item = item;
         }
     });
 
-    if (!found) {
+    if (!Matching_item) {
         cart.push({
-            "product-name": productName,
+            "productId": productId,
             quantity: 1
         });
+    }else{
+        Matching_item.quantity += 1
     }
     
     console.log(cart);
