@@ -82,9 +82,16 @@ const addToCart = (button) => {
     }else{
         Matching_item.quantity += 1
     }
-    
-    console.log(cart);
+
+    let cartQuantity=0;
+
+    cart.forEach((product)=> {
+        cartQuantity += product.quantity;
+    });
+
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 };
+
 
 
 const addToCartButton = document.querySelectorAll('.add-to-cart-button')
@@ -93,7 +100,8 @@ addToCartButton.forEach((button)=> {
     button.addEventListener('click', function(){
         addToCart(button)
     }
-)})
+    
+)});
 
 
 
