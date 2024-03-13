@@ -1,3 +1,9 @@
+// -------------------  import variables  ----------------------
+import { cart ,addToCart } from "../data/cart.js";
+import { products } from "../data/products.js";
+
+
+
 
 // -------------------  populating products data  ----------------------
 
@@ -61,53 +67,13 @@ productsContainer.innerHTML = html;
 
 
 
-// ----------------  making add to cart interactive  ----------------
-
-const addToCart = (button) => {
-    const {productId} = button.dataset;
-    const quantity = Number(document.querySelector(`.js-quantity-selecter-${productId}`).value)
-    let Matching_item;
-
-
-    Matching_item = cart.find(item => item.productId === productId)
-
-    if (!Matching_item){
-      cart.push({productId,quantity});
-    } else { 
-      Matching_item.quantity += quantity 
-    }
-    
-
-    updateCartQuantity()
-    
-    
-    showAddedmessage(productId)
-
-};
-
-
-const updateCartQuantity = ()=> {
-  let cartQuantity=0;
-  cart.forEach((product)=> {
-      cartQuantity += product.quantity;
-  });
-  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-}
-
-
-let timeOutIds = {};
-const showAddedmessage = (productId)=> {
-const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-addedMessage.classList.add('added-to-cart-visible')
-clearTimeout(timeOutIds[productId])
-timeOutIds[productId] = setTimeout(() => addedMessage.classList.remove('added-to-cart-visible'), 2000);   
-}
 
 
 const addToCartButton = document.querySelectorAll('.add-to-cart-button')
 addToCartButton.forEach((button)=> {
     button.addEventListener('click', function(){
         addToCart(button)
+        updateCartQuantity()
         console.log(cart);
     }
 )});
@@ -117,6 +83,19 @@ addToCartButton.forEach((button)=> {
 
 
 
+
+
+
+
+// ----------------- main page functions ----------------------------
+
+function updateCartQuantity () {
+  let cartQuantity=0;
+  cart.forEach((product)=> {
+      cartQuantity += product.quantity;
+  });
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+}
 
 
 
