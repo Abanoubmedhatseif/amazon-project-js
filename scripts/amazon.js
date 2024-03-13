@@ -68,41 +68,21 @@ const addToCart = (button) => {
     const quantity = Number(document.querySelector(`.js-quantity-selecter-${productId}`).value)
     let Matching_item;
 
-    cart.forEach((item) => {
-        if (item.productId === productId) {
-            Matching_item = item;
-        }
-    });
 
-    if (!Matching_item) {
-        cart.push({
-            productId,
-            quantity
-        });
-    }else{
-        Matching_item.quantity += quantity
+    Matching_item = cart.find(item => item.productId === productId)
+
+    if (!Matching_item){
+      cart.push({productId,quantity});
+    } else { 
+      Matching_item.quantity += quantity 
     }
-    console.log(cart);
-
-    let cartQuantity=0;
-    cart.forEach((product)=> {
-        cartQuantity += product.quantity;
-    });
-
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-
-    const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-    addedMessage.innerHTML=`<img src="images/icons/checkmark.png">
-    Added`
-        
-    timeOutId = setTimeout(() => {
-        addedMessage.innerHTML=``;
-    }, 1500);   
     
-    
-    
+
+    updateCartQuantity()
+
+    showAddedmessage(productId)
+
 };
-
 
 
 const addToCartButton = document.querySelectorAll('.add-to-cart-button')
@@ -110,9 +90,34 @@ const addToCartButton = document.querySelectorAll('.add-to-cart-button')
 addToCartButton.forEach((button)=> {
     button.addEventListener('click', function(){
         addToCart(button)
+        console.log(cart);
     }
     
 )});
+
+
+const updateCartQuantity = ()=> {
+    let cartQuantity=0;
+    cart.forEach((product)=> {
+        cartQuantity += product.quantity;
+    });
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+}
+
+
+const showAddedmessage = (productId)=> {
+  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+  addedMessage.innerHTML=`<img src="images/icons/checkmark.png">
+  Added`
+  
+  timeOutId = setTimeout(() => {
+    addedMessage.innerHTML=``;
+  }, 1500);   
+}
+
+
+
+
 
 
 
