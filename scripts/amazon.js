@@ -86,33 +86,34 @@ const addToCart = (button) => {
 };
 
 
-const addToCartButton = document.querySelectorAll('.add-to-cart-button')
-
-addToCartButton.forEach((button)=> {
-    button.addEventListener('click', function(){
-        addToCart(button)
-        console.log(cart);
-    }
-    
-)});
-
-
 const updateCartQuantity = ()=> {
-    let cartQuantity=0;
-    cart.forEach((product)=> {
-        cartQuantity += product.quantity;
-    });
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+  let cartQuantity=0;
+  cart.forEach((product)=> {
+      cartQuantity += product.quantity;
+  });
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 }
 
 
 let timeOutIds = {};
 const showAddedmessage = (productId)=> {
-  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-  addedMessage.innerHTML=`<img src="images/icons/checkmark.png"> Added`
-  clearTimeout(timeOutIds[productId])
-  timeOutIds[productId] = setTimeout(() => addedMessage.innerHTML=``, 2000);   
+const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+addedMessage.innerHTML=`<img src="images/icons/checkmark.png"> Added`
+clearTimeout(timeOutIds[productId])
+timeOutIds[productId] = setTimeout(() => addedMessage.innerHTML=``, 2000);   
 }
+
+
+const addToCartButton = document.querySelectorAll('.add-to-cart-button')
+addToCartButton.forEach((button)=> {
+    button.addEventListener('click', function(){
+        addToCart(button)
+        console.log(cart);
+    }
+)});
+
+
+
 
 
 
