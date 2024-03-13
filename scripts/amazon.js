@@ -79,7 +79,8 @@ const addToCart = (button) => {
     
 
     updateCartQuantity()
-
+    
+    
     showAddedmessage(productId)
 
 };
@@ -105,14 +106,12 @@ const updateCartQuantity = ()=> {
 }
 
 
+let timeOutIds = {};
 const showAddedmessage = (productId)=> {
   const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-  addedMessage.innerHTML=`<img src="images/icons/checkmark.png">
-  Added`
-  
-  timeOutId = setTimeout(() => {
-    addedMessage.innerHTML=``;
-  }, 1500);   
+  addedMessage.innerHTML=`<img src="images/icons/checkmark.png"> Added`
+  clearTimeout(timeOutIds[productId])
+  timeOutIds[productId] = setTimeout(() => addedMessage.innerHTML=``, 2000);   
 }
 
 
